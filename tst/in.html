@@ -1,9 +1,0 @@
-<h1>Sub-pages</h1>
-##(
-for PAGE in $(ls ./pages/*.html -1)
-do
-    htag a "$(basename "$PAGE" .html)" \
-        --href "$PAGE" \
-        | htag li
-done | htag ul
-)##
