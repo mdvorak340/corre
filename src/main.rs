@@ -16,7 +16,7 @@ struct Args {
     output: Option<String>,
 
     /// The delimiters that mark an embedded script.
-    #[arg(short, long, default_value_t = ("!(( ))!".to_string()))]
+    #[arg(short, long, default_value = "!(( ))!")]
     delimiters: String,
 }
 
