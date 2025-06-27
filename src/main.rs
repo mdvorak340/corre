@@ -1,0 +1,49 @@
+use clap::Parser;
+use std::fs;
+use std::io;
+use std::io::Read;
+
+/// Execute embedded shell scripts.
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    /// The input file.  Defaults to the STDIN.
+    #[arg(short, long)]
+    input: Option<String>,
+
+    /// The output file.  Defaults to the STDOUT.
+    #[arg(short, long)]
+    output: Option<String>,
+
+    /// The delimiters that mark an embedded script.
+    #[arg(short, long, default_value_t = ("!(( ))!".to_string()))]
+    delimiters: String,
+}
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args = Args::parse();
+
+    let delimiters: Vec<&str> = args.delimiters.split(' ').collect();
+    let [opening_tag, closing_tag] = delimiters[..] else {
+        return Err(format!("Invalid delimiters: {:?}", args.delimiters).into());
+    };
+
+    let input_text = match args.input {
+        Some(filepath) => fs::read_to_string(filepath)?,
+        None => {
+            let mut buffer = Vec::new();
+            io::stdin().read_to_end(&mut buffer)?;
+            String::from_utf8(buffer.to_vec())?
+        }
+    };
+
+    let output_text =
+        nacre::run_embedded_scripts(input_text, opening_tag, closing_tag)?;
+
+    match args.output {
+        Some(filepath) => fs::write(filepath, output_text)?,
+        None => println!("{}", output_text),
+    }
+
+    Ok(())
+}

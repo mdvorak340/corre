@@ -1,0 +1,7 @@
+metadata:
+  title: Nacre
+  author: Mozzie Dvorak
+  date: 2025-06-27
+  description: "CLI to execute embedded shell scripts"
+  # incorrect filepath, but required
+  css: ./doc/styles.css

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <!-- md addition start -->
+  <base target="_blank" rel="noopener noreferrer"></base>
+  <!-- md addition end -->
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Mozzie Dvorak" />
+  <meta name="dcterms.date" content="2025-06-27" />
+  <meta name="description" content="CLI to execute embedded shell scripts" />
+  <title>Nacre</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">* {
+padding:0;
+margin:0;
+box-sizing:border-box;
+}
+em {
+font-style:normal;
+text-decoration:underline 1px solid currentcolor;
+}
+html {
+font:13pt sans-serif;
+hyphens:auto;
+line-height:1.5;
+color:#333;
+background:#edc;
+}
+body {
+margin-inline:auto;
+padding:1rem 1rem 4rem 1rem;
+max-width:55ch;
+min-height:100vh;
+}
+h1 {
+line-height:1.2;
+font-size:1.5rem;
+margin:2rem 0 1rem 0;
+letter-spacing:0.05rem;
+text-transform:uppercase;
+border-top:1px solid #c44;
+padding-top:0.5rem;
+}
+p { margin-block:1rem; }
+pre {
+max-width:100%;
+overflow:auto;
+background:#edd;
+border-radius:1rem;
+padding:1rem;
+}
+pre > code { white-space:pre; }
+a {
+color:#44c;
+text-decoration:none;
+}
+a:hover { text-decoration:underline 1px solid currentcolor; }
+header h1 { border:none; }
+header p { display:inline; }
+header p[class="author"]::before { content:' by '; }
+header p[class="date"]::before { content:' on '; }
+dt { font-weight:bold; }
+dd { margin-left:4ch; }
+dd + dt { margin-top:1rem; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Nacre</h1>
+<p class="author">Mozzie Dvorak</p>
+<p class="date">2025-06-27</p>
+</header>
+<h1 id="name">NAME</h1>
+<p>nacre - execute embedded shell scripts</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>nacre</strong> [<em>OPTIONS</em>]...</p>
+<h1 id="description">DESCRIPTION</h1>
+<p>Used to execute shell scripts embedded within text files, and replace
+those embedded scripts with their STDOUT results.</p>
+<p>By default, the input for the nacre is read from the STDIN and the
+output printed to the STDOUT. These can be redirected via file
+redirection or the -i and -o flags.</p>
+<p>The default delimiter used to mark an embedded script is the opening
+tag “!((” and the closing tag “))!”. Backslashes can be used to escape
+these sequences if needed and the delimiter can be changed with the -d
+flag.</p>
+<p>The embedded scripts are called from the directory of the input
+file.</p>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt>-i, --input</dt>
+<dd>
+The input file. Defaults to the STDIN.
+</dd>
+<dt>-o, --output</dt>
+<dd>
+The output file. Defaults to the STDOUT.
+</dd>
+<dt>-d, --delimiters</dt>
+<dd>
+Overrides the default delimiters “!(( ))!”. Separate the opening and
+closing tags with a space.
+</dd>
+<dt>-h, --help</dt>
+<dd>
+Prints a help menu.
+</dd>
+<dt>-V, --version</dt>
+<dd>
+Prints the current version of the program.
+</dd>
+</dl>
+<h1 id="bugs">BUGS</h1>
+<p>Report bugs to <a href="mailto:mdvorak.personal@gmail.com" class="email">mdvorak.personal@gmail.com</a>.</p>
+<h1 id="examples">EXAMPLES</h1>
+<p>Including partial files:</p>
+<pre><code>$ cat main.md
+# Header
+
+!((cat ./partial.md))!
+
+And some text from the main file.
+$ cat partial.md
+Some text from a partial file.
+$ nacre -i main.md -o out.md
+$ cat out.md
+# Header
+
+Some text from a partial file.
+
+And some text from the main file.</code></pre>
+<p>Including directory listings:</p>
+<pre><code>$ ls ./src/ -1
+Element.hs
+Main.hs
+Markup.hs
+Patterns.hs
+$ cat list.md
+# All files in the `./src/` directory
+
+There are !((ls ./src./ -1 | wc -l))! file(s) in the `./src/` directory:
+
+!((
+for FILE in $(ls ./src/ -1)
+do echo &quot;- `$FILE`&quot;
+done
+))!
+$ nacre &lt; list.md
+# All files in the `./src/` directory
+
+There are 4 file(s) in the `./src/` directory:
+
+- `Element.hs`
+- `Main.hs`
+- `Markup.hs`
+- `Patterns.hs`</code></pre>
+<p>Changing the delimiter:</p>
+<pre><code>$ cat in.html
+&lt;h1&gt;Sub-pages&lt;/h1&gt;
+##(
+for PAGE in $(ls ./pages/*.html -1)
+do
+    htag a &quot;$(basename &quot;$PAGE&quot; .html)&quot; \
+        --href &quot;$PAGE&quot; \
+        | htag li
+done | htag ul
+)##
+$ cat in.html | nacre -d &quot;##( )##&quot; &gt; out.html
+$ cat out.html
+&lt;h1&gt;Sub-pages&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;./pages/about.html&quot;&gt;about&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;./pages/contact.html&quot;&gt;contact&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;./pages/resources.html&quot;&gt;resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<h1 id="see-also">SEE ALSO</h1>
+<p>Source code can be found at <a href="https://foobar.baz" class="uri">https://foobar.baz</a>.</p>
+</body>
+</html>

@@ -1,0 +1,9 @@
+[package]
+name = "nacre"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.40", features = ["derive"] }
+regex = "1.11.1"
+subprocess = "0.2.9"

@@ -1,0 +1,1 @@
+Some text from a partial file.
