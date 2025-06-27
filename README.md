@@ -115,4 +115,4 @@ Changing the delimiter:
 
 # SEE ALSO
 
-Source code can be found at <https://foobar.baz>.
+Source code can be found at <https://github.com/mdvorak340/nacre>.
