@@ -41,6 +41,8 @@ The embedded scripts are called from the directory that nacre is called from.
 
 # BUGS
 
+1. The characters "<" and ">" cannot be used as a part of a delimiter.
+
 Report bugs to <mdvorak.personal@gmail.com>.
 
 # EXAMPLES

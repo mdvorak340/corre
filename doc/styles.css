@@ -60,3 +60,5 @@ header p[class="date"]::before { content:' on '; }
 dt { font-weight:bold; }
 dd { margin-left:4ch; }
 dd + dt { margin-top:1rem; }
+
+ul, ol { margin-left:2ch; }
