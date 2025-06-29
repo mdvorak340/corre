@@ -3,4 +3,4 @@ metadata:
   author: Mozzie Dvorak
   description: "CLI to execute shell scripts embedded within text"
   # incorrect filepath, but required
-  css: ./doc/styles.css
+  css: ./dist/styles.css
