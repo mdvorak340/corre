@@ -21,6 +21,12 @@ if needed and the delimiter can be changed with the -d flag.
 
 The embedded scripts are called from the directory that corre is called from.
 
+# INSTALL
+
+Requires the rust toolchain and the cargo CLI.
+
+    cargo install corre
+
 # OPTIONS
 
 -i, -\-input

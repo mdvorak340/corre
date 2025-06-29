@@ -1,6 +1,6 @@
 [package]
 name = "corre"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2021"
 authors = ["Mozzie Dvorak <mdvorak.projects@gmail.com>"]
 description = "Execute shell scripts embedded within text"
