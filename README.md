@@ -121,10 +121,7 @@ Changing the delimiter:
 
 # SEE ALSO
 
-Source code can be found at <https://github.com/mdvorak340/corre>.
-
-Online manpage can be found at <https://mdvorak340.github.io/corre>.
-
-Changelog can be found at <https://mdvorak340.github.io/corre/changelog>.
-
-`rustdoc` documentation can be found at <https://docs.rs/corre/>.
+- Source code: <https://github.com/mdvorak340/corre>.
+- Online manpage: <https://mdvorak340.github.io/corre>.
+- Changelog: <https://mdvorak340.github.io/corre/changelog>.
+- `rustdoc` documentation: <https://docs.rs/corre/>.
