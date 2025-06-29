@@ -11,6 +11,7 @@ repository = "https://github.com/mdvorak340/corre"
 license = "MIT"
 keywords = ["shell", "scripts"]
 categories = ["command-line-utilities"]
+exclude = ["dist/", "justfile", ".github/"]
 
 [dependencies]
 clap = { version = "4.5.40", features = ["derive"] }
