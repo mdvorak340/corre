@@ -121,4 +121,4 @@ Online manpage can be found at <https://mdvorak340.github.io/corre>.
 
 Changelog can be found at <https://mdvorak340.github.io/corre/changelog>.
 
-<!-- `rustdoc` documentation can be found at <https://mdvorak340.github.io/corre/doc/corre>. -->
+`rustdoc` documentation can be found at <https://docs.rs/corre/>.
