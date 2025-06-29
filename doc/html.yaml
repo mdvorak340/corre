@@ -1,7 +1,6 @@
 metadata:
-  title: Nacre
+  title: Corre
   author: Mozzie Dvorak
-  date: 2025-06-27
-  description: "CLI to execute embedded shell scripts"
+  description: "CLI to execute shell scripts embedded within text"
   # incorrect filepath, but required
   css: ./doc/styles.css

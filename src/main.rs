@@ -3,7 +3,7 @@ use std::fs;
 use std::io;
 use std::io::Read;
 
-/// Execute embedded shell scripts.
+/// Execute shell scripts embedded within text.
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
@@ -38,7 +38,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     let output_text =
-        nacre::run_embedded_scripts(input_text, opening_tag, closing_tag)?;
+        corre::run_embedded_scripts(input_text, opening_tag, closing_tag)?;
 
     match args.output {
         Some(filepath) => fs::write(filepath, output_text)?,

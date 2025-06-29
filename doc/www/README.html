@@ -10,7 +10,7 @@
   <meta name="author" content="Mozzie Dvorak" />
   <meta name="dcterms.date" content="2025-06-27" />
   <meta name="description" content="CLI to execute embedded shell scripts" />
-  <title>Nacre</title>
+  <title>Corre</title>
   <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,12 +49,24 @@ padding:1rem 1rem 4rem 1rem;
 max-width:55ch;
 min-height:100vh;
 }
-h1 {
+h1, h2 {
 line-height:1.2;
+}
+h1 {
 font-size:1.5rem;
 margin:2rem 0 1rem 0;
 letter-spacing:0.05rem;
 text-transform:uppercase;
+}
+h2 {
+font-size:1.3rem;
+margin:0.5rem 0 1rem 0;
+padding-top:0.5rem;
+border-top:1px solid currentcolor;
+}
+h3 {
+font-size:1.1rem;
+margin-block:1rem;
 }
 p { margin-block:1rem; }
 pre {
@@ -81,25 +93,25 @@ ul, ol { margin-left:2ch; }
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Nacre</h1>
+<h1 class="title">Corre</h1>
 <p class="author">Mozzie Dvorak</p>
 <p class="date">2025-06-27</p>
 </header>
 <h1 id="name">NAME</h1>
-<p>nacre - execute embedded shell scripts</p>
+<p>corre - execute embedded shell scripts</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>nacre</strong> [<em>OPTIONS</em>]...</p>
+<p><strong>corre</strong> [<em>OPTIONS</em>]...</p>
 <h1 id="description">DESCRIPTION</h1>
 <p>Used to execute shell scripts embedded within text files, and replace
 those embedded scripts with their STDOUT results.</p>
-<p>By default, the input for the nacre is read from the STDIN and the
+<p>By default, the input for the corre is read from the STDIN and the
 output printed to the STDOUT. These can be redirected via file
 redirection or the -i and -o flags.</p>
 <p>The default delimiter used to mark an embedded script is the opening
 tag “!((” and the closing tag “))!”. Backslashes can be used to escape
 these sequences if needed and the delimiter can be changed with the -d
 flag.</p>
-<p>The embedded scripts are called from the directory that nacre is
+<p>The embedded scripts are called from the directory that corre is
 called from.</p>
 <h1 id="options">OPTIONS</h1>
 <dl>
@@ -141,7 +153,7 @@ delimiter.</li>
 And some text from the main file.
 $ cat partial.md
 Some text from a partial file.
-$ nacre -i main.md -o out.md
+$ corre -i main.md -o out.md
 $ cat out.md
 # Header
 
@@ -164,7 +176,7 @@ for FILE in $(ls ./src/ -1)
 do echo &quot;- `$FILE`&quot;
 done
 ))!
-$ nacre &lt; list.md
+$ corre &lt; list.md
 # All files in the `./src/` directory
 
 There are 4 file(s) in the `./src/` directory:
@@ -184,7 +196,7 @@ do
         | htag li
 done | htag ul
 )##
-$ cat in.html | nacre -d &quot;##( )##&quot; &gt; out.html
+$ cat in.html | corre -d &quot;##( )##&quot; &gt; out.html
 $ cat out.html
 &lt;h1&gt;Sub-pages&lt;/h1&gt;
 &lt;ul&gt;
@@ -193,6 +205,6 @@ $ cat out.html
   &lt;li&gt;&lt;a href=&quot;./pages/resources.html&quot;&gt;resources&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 <h1 id="see-also">SEE ALSO</h1>
-<p>Source code can be found at <a href="https://github.com/mdvorak340/nacre" class="uri">https://github.com/mdvorak340/nacre</a>.</p>
+<p>Source code can be found at <a href="https://github.com/mdvorak340/corre" class="uri">https://github.com/mdvorak340/corre</a>.</p>
 </body>
 </html>

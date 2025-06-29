@@ -1,17 +1,17 @@
 # NAME
 
-nacre - execute embedded shell scripts
+corre - execute shell scripts embedded within text
 
 # SYNOPSIS
 
-**nacre** [*OPTIONS*]\...
+**corre** [*OPTIONS*]\...
 
 # DESCRIPTION
 
 Used to execute shell scripts embedded within text files, and replace those
 embedded scripts with their STDOUT results.
 
-By default, the input for the nacre is read from the STDIN and the output
+By default, the input for the corre is read from the STDIN and the output
 printed to the STDOUT.  These can be redirected via file redirection or the -i
 and -o flags.
 
@@ -19,7 +19,7 @@ The default delimiter used to mark an embedded script is the opening tag "!(("
 and the closing tag "))!".  Backslashes can be used to escape these sequences
 if needed and the delimiter can be changed with the -d flag.
 
-The embedded scripts are called from the directory that nacre is called from.
+The embedded scripts are called from the directory that corre is called from.
 
 # OPTIONS
 
@@ -57,7 +57,7 @@ Including partial files:
     And some text from the main file.
     $ cat partial.md
     Some text from a partial file.
-    $ nacre -i main.md -o out.md
+    $ corre -i main.md -o out.md
     $ cat out.md
     # Header
 
@@ -82,7 +82,7 @@ Including directory listings:
     do echo "- `$FILE`"
     done
     ))!
-    $ nacre < list.md
+    $ corre < list.md
     # All files in the `./src/` directory
 
     There are 4 file(s) in the `./src/` directory:
@@ -104,7 +104,7 @@ Changing the delimiter:
             | htag li
     done | htag ul
     )##
-    $ cat in.html | nacre -d "##( )##" > out.html
+    $ cat in.html | corre -d "##( )##" > out.html
     $ cat out.html
     <h1>Sub-pages</h1>
     <ul>
@@ -115,4 +115,4 @@ Changing the delimiter:
 
 # SEE ALSO
 
-Source code can be found at <https://github.com/mdvorak340/nacre>.
+Source code can be found at <https://github.com/mdvorak340/corre>.
